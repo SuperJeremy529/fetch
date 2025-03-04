@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - mongodb      
+    environment:
+      MONGO_DATABASE_HOST: ${MONGO_DATABASE_HOST}
+      MONGO_DATABASE_PORT: ${MONGO_DATABASE_PORT}
+      MONGO_DATABASE_USERNAME: ${MONGO_DATABASE_USERNAME}
+      MONGO_DATABASE_PASSWORD: ${MONGO_DATABASE_PASSWORD}
+      MONGO_DATABASE_NAME: ${MONGO_DATABASE_NAME}
+
+    restart: always
+    networks:
+      - backend
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DATABASE_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DATABASE_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE_NAME}
+
+    volumes:
+      - mongodb_data:/data/db
+    
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mongodb_data:

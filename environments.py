@@ -1,0 +1,11 @@
+from dotenv import load_dotenv
+import os 
+
+load_dotenv()
+
+
+MONGO_DATABASE_HOST = os.getenv("MONGO_DATABASE_HOST") 
+MONGO_DATABASE_PORT = os.getenv("MONGO_DATABASE_PORT") 
+MONGO_DATABASE_USERNAME = os.getenv("MONGO_DATABASE_USERNAME") 
+MONGO_DATABASE_PASSWORD = os.getenv("MONGO_DATABASE_PASSWORD") 
+MONGO_DATABASE_NAME = os.getenv("MONGO_DATABASE_NAME") 
